@@ -1,14 +1,30 @@
 import { lazy, Suspense } from 'react';
+import PageLoader from '@/components/PageLoader';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '@/redux/auth/selectors';
+import Localization from '@/locale/Localization';
 
 const CRMApp = lazy(() => import('./CrmApp'));
 
 const DefaultApp = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <CRMApp />
-  </Suspense>
+  <Localization>
+    <AppContextProvider>
+        <Suspense fallback={<PageLoader />}>
+            <CRMApp />
+        </Suspense>
+    </AppContextProvider>
+  </Localization> 
 );
 
 export default function CrmOs() {
-  console.log('Loading the app');
-  return <DefaultApp />;
+  const { isLoggedIn } = useSelector(selectAuth);
+  if (!isLoggedIn)
+    return (
+      <Localization>
+        <div>Loading...</div>
+      </Localization>
+    );
+  else {
+    return <DefaultApp />;
+  }    
 }
