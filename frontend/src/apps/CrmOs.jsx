@@ -3,6 +3,8 @@ import PageLoader from '@/components/PageLoader';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '@/redux/auth/selectors';
 import Localization from '@/locale/Localization';
+import AuthRouter from '@/router/AuthRouter';
+import { AppContextProvider } from '@/context/appContext';
 
 const CRMApp = lazy(() => import('./CrmApp'));
 
@@ -21,7 +23,7 @@ export default function CrmOs() {
   if (!isLoggedIn)
     return (
       <Localization>
-        <div>Loading...</div>
+        <AuthRouter />
       </Localization>
     );
   else {

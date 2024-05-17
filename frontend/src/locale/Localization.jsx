@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider} from 'antd';
 
 import { useSelector } from 'react-redux';
 

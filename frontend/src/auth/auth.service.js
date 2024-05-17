@@ -6,11 +6,18 @@ import successHandler from '@/request/successHandler';
 
 export const login = async ({ loginData }) => {
   try {
-    const response = await axios.post(
-      API_BASE_URL + `login?timestamp=${new Date().getTime()}`,
-      loginData
-    );
-
+    // const response = await axios.post(
+    //   API_BASE_URL + `login?timestamp=${new Date().getTime()}`,
+    //   loginData
+    // );
+    const response = {
+      status: 200,
+      data: {
+        id: 1,
+        name: "John",
+        success: true
+      },
+    }
     const { status, data } = response;
 
     successHandler(
@@ -102,3 +109,6 @@ export const logout = async () => {
   }
 };
 
+//  console.log(
+//    '🚀 Welcome to IDURAR ERP CRM! Did you know that we also offer commercial customization services? Contact us at hello@idurarapp.com for more information.'
+//  );

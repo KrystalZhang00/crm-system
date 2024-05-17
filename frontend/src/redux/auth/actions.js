@@ -7,11 +7,21 @@ export const login =
     dispatch({
       type: actionTypes.REQUEST_LOADING,
     });
-    const data = await authService.login({ loginData });
-
-    if (data.success === true) {
+    // const data = await authService.login({ loginData });
+    const fakeResponse = {
+      success: true,
+      result: {
+        userId: '12345',
+        username: 'testuser',
+        email: 'testuser@example.com',
+        token: 'abcd1234token',
+        roles: ['admin'],
+        // Add other relevant user details here
+      },
+    };
+    if (fakeResponse.success === true) {
       const auth_state = {
-        current: data.result,
+        current: fakeResponse.result,
         isLoggedIn: true,
         isLoading: false,
         isSuccess: true,
@@ -20,7 +30,7 @@ export const login =
       window.localStorage.removeItem('isLogout');
       dispatch({
         type: actionTypes.REQUEST_SUCCESS,
-        payload: data.result,
+        payload: fakeResponse.result,
       });
     } else {
       dispatch({
