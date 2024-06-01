@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import lang from '@/locale/translation/en_us';
 
-import rootReducer from './rootReducer.js';
+import rootReducer from './rootReducer';
 import storePersist, { localStorageHealthCheck } from './storePersist';
 
 localStorageHealthCheck();
@@ -32,7 +32,7 @@ const initialState = { translate: lang_state, auth: auth_state };
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: initialState,
-  devTools: import.meta.env.PROD === false,
+  devTools: import.meta.env.PROD === false, // Enable Redux DevTools in development mode
 });
 
 

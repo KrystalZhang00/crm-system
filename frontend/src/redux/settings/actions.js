@@ -127,11 +127,8 @@ export const settingsAction = {
         type: actionTypes.REQUEST_LOADING,
       });
 
-      // let data = await request.listAll({ entity });
-      let data = {
-        "success":"true",
-        "result":[],
-      }
+      let data = await request.listAll({ entity });
+
       if (data.success === true) {
         const payload = dispatchSettingsData(data.result);
         window.localStorage.setItem('settings', JSON.stringify(dispatchSettingsData(data.result)));

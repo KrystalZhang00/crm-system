@@ -20,11 +20,8 @@ export const currencyAction = {
       type: actionTypes.REQUEST_LOADING,
     });
 
-    // let data = await request.listAll({ entity: 'currency', options: { enabled: true } });
-    let data = {
-      "success":"true",
-      "result":[],
-    }
+    let data = await request.listAll({ entity: 'currency', options: { enabled: true } });
+
     if (data.success === true) {
       dispatch({
         type: actionTypes.REQUEST_SUCCESS,

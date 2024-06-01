@@ -1,5 +1,6 @@
 import * as actionTypes from './types';
 import * as authService from '@/auth';
+import { request } from '@/request';
 
 export const login =
   ({ loginData }) =>
@@ -7,30 +8,20 @@ export const login =
     dispatch({
       type: actionTypes.REQUEST_LOADING,
     });
-    // const data = await authService.login({ loginData });
-    const fakeResponse = {
-      success: true,
-      result: {
-        userId: '12345',
-        username: 'testuser',
-        email: 'testuser@example.com',
-        token: 'abcd1234token',
-        roles: ['admin'],
-        // Add other relevant user details here
-      },
-    };
-    if (fakeResponse.success === true) {
-      const auth_state = {
-        current: fakeResponse.result,
-        isLoggedIn: true,
-        isLoading: false,
-        isSuccess: true,
-      };
-      window.localStorage.setItem('auth', JSON.stringify(auth_state));
-      window.localStorage.removeItem('isLogout');
+    const data = await authService.login({ loginData });
+
+    if (data.success === true) {
+      // const auth_state = {
+      //   current: data.result,
+      //   isLoggedIn: true,
+      //   isLoading: false,
+      //   isSuccess: true,
+      // };
+      // window.localStorage.setItem('auth', JSON.stringify(auth_state));
+      // window.localStorage.removeItem('isLogout');
       dispatch({
         type: actionTypes.REQUEST_SUCCESS,
-        payload: fakeResponse.result,
+        payload: data.result,
       });
     } else {
       dispatch({
@@ -144,3 +135,23 @@ export const logout = () => async (dispatch) => {
     // on lgout success
   }
 };
+
+export const updateProfile =
+  ({ entity, jsonData }) =>
+  async (dispatch) => {
+    let data = await request.updateAndUpload({ entity, id: '', jsonData });
+
+    if (data.success === true) {
+      dispatch({
+        type: actionTypes.REQUEST_SUCCESS,
+        payload: data.result,
+      });
+      const auth_state = {
+        current: data.result,
+        isLoggedIn: true,
+        isLoading: false,
+        isSuccess: true,
+      };
+      window.localStorage.setItem('auth', JSON.stringify(auth_state));
+    }
+  };

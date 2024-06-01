@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   isSuccess: false,
 };
 
-const currencyReducer = (state = INITIAL_STATE, action) => {
+const settingsReducer = (state = INITIAL_STATE, action) => {
   const { payload = null } = action;
   switch (action.type) {
     case actionTypes.RESET_STATE:
@@ -34,4 +34,4 @@ const currencyReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default currencyReducer;
+export default settingsReducer;
